@@ -24,11 +24,24 @@ class TodosController < ApplicationController
   end
 
   def complete
-  	   params[:todos_checkbox].each do |check|
-       todo_id = check
-       t = Todo.find_by_id(todo_id)
-       t.update_attribute(:done, true)
-     end
+  	   action = params[:commit]
+
+      
+  	   logger.info(action)
+
+  	   if (action == "Delete")
+           params[:todos_checkbox].each do |check|
+	       		todo_id = check
+	       		t = Todo.find_by_id(todo_id)
+	       		t.delete
+	       	end
+       else
+	  	   params[:todos_checkbox].each do |check|
+	       		todo_id = check
+	       		t = Todo.find_by_id(todo_id)
+	       		t.update_attribute(:done, true)
+	   	    end
+       end
     redirect_to :action => 'index'
    end
 
