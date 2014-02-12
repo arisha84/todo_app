@@ -1,10 +1,24 @@
 TodoApp::Application.routes.draw do
 
   root  'todos#index'
-  match "todos/index" => "todos#index", :as => index
 
-  match "todos/delete" => "todos#delete", :as => :delete 
-  match "todos/add" => "todos#add", :via => :post 
+ 
+
+  get '/todos/index', to: 'todos#index'
+  get '/todos/delete', to: 'todos#delete'
+  post '/todos/add', to: 'todos#add'
+  post '/todos/complete', to: 'todos#complete'
+  
+
+
+
+  #match "todos/delete" => "todos#delete", :as => :delete 
+  #match "todos/add" => "todos#add", :via => :post 
+
+  #match 'todos/index' => 'todos#index', :via => 'get'
+
+  #match 'todos/delete' => 'todos#delete', :via => 'delete' 
+  #match  'todos/add' => 'todos#add', :via => 'post' 
  
  
   # The priority is based upon order of creation: first created -> highest priority.

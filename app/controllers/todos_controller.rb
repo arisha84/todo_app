@@ -8,6 +8,7 @@ class TodosController < ApplicationController
 
   def  delete
    #complete
+   redirect_to :action => 'index' 
   end 
 
   def add 
@@ -16,10 +17,21 @@ class TodosController < ApplicationController
  		flash[:error] = todo.errors.full_messages.join("<br>").html_safe  
     else
     	flash[:success] = "Todo added successfully"
-
-    	 
-         redirect_to :action => 'index' 
     end 
+    	 
+    redirect_to :action => 'index' 
+     
+  end
+
+  def complete
+  	   params[:todos_checkbox].each do |check|
+       todo_id = check
+       t = Todo.find_by_id(todo_id)
+       t.update_attribute(:done, true)
+     end
+    redirect_to :action => 'index'
+   end
+
 
 private
 
